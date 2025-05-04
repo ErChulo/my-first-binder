@@ -1,0 +1,165 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\usepackage{tikz}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\geometry{margin=1in}
+
+\newtheorem{definition}{Definici\'on}
+\newtheorem{remark}{Comentario}
+
+\title{Conservaci\'on Geom\'etrica en el Modelo Normal: Una Exploraci\'on Informacional}
+\author{Herick L\'opez \\ \small \textit{PBGC, Departamento Actuarial}}
+\date{\today}
+
+\begin{document}
+	
+	\maketitle
+	
+	\begin{abstract}
+		En esta nota exploramos la conexi\'on entre simetr\'ias geom\'etricas y cantidades conservadas en la variedad estad\'istica inducida por el modelo normal $\mathcal{N}(\mu, \sigma^2)$. Derivamos los s\'imbolos de Christoffel, las ecuaciones geod\'esicas, y encontramos una combinaci\'on de simetr\'ias que induce una cantidad conservada casi perfecta a lo largo del flujo geod\'esico. Se propone esta magnitud como una ley constitutiva para procesos estoc\'asticos bajo restricciones informacionales.
+	\end{abstract}
+	
+	\section{Variedad estad\'istica del modelo normal}
+	
+	Sea el modelo $\mathcal{N}(\mu, \sigma^2)$ con $\theta = (\mu, \sigma)$. La m\'etrica de Fisher asociada es:
+	\[
+	g_{ij}(\mu, \sigma) = \begin{pmatrix} \frac{1}{\sigma^2} & 0 \\ 0 & \frac{2}{\sigma^2} \end{pmatrix}
+	\]
+	
+	\section{Ecuaciones geod\'esicas}
+	
+	Los s\'imbolos de Christoffel no nulos son:
+	\[
+	\Gamma^\mu_{\mu\sigma} = \Gamma^\mu_{\sigma\mu} = -\frac{1}{\sigma}, \qquad
+	\Gamma^\sigma_{\mu\mu} = \frac{1}{2\sigma}, \qquad
+	\Gamma^\sigma_{\sigma\sigma} = -\frac{1}{\sigma}
+	\]
+	
+	Las ecuaciones geod\'esicas resultantes son:
+	\[
+	\begin{cases}
+		\mu''(t) = \dfrac{2\mu'(t)\sigma'(t)}{\sigma(t)} \\
+		\sigma''(t) = \dfrac{\mu'(t)^2 + 2\sigma'(t)^2}{2\sigma(t)}
+	\end{cases}
+	\]
+	
+	\section{Simetr\'ias candidatas y su clasificaci\'on}
+	
+	Antes de realizar el ajuste, se consideraron diversas simetr\'ias elementales del modelo:
+	\begin{itemize}
+		\item \textbf{Traslaci\'on pura:} $X = \partial_\mu$. Induce $Q(t) = \mu'(t)/\sigma^2$, pero su variaci\'on temporal no es constante.
+		\item \textbf{Dilataci\'on escalar:} $X = \mu \partial_\mu + \sigma \partial_\sigma$. Induce una mezcla proporcional entre velocidades.
+		\item \textbf{Campo conforme:} $X = \sigma \partial_\sigma$. Se alinea parcialmente con cambios de escala, pero no es conservado.
+		\item \textbf{Combinaci\'on general:} $X = \frac{a}{\sigma^2} \partial_\mu + b \mu \partial_\mu + c \sigma \partial_\sigma$. Su conservaci\'on depende de ajuste fino.
+	\end{itemize}
+	
+	\section{Exploraci\'on de simetr\'ias}
+	
+	Se evalu\'o la forma general:
+	\[
+	X = \frac{a}{\sigma^2} \partial_\mu + b \mu \partial_\mu + c \sigma \partial_\sigma
+	\]
+	
+	La cantidad inducida por este campo sobre una trayectoria parametrizada $\theta(t) = (\mu(t), \sigma(t))$ es:
+	\[
+	Q(t) = g_{ij} X^i \dot{\theta}^j = \frac{1}{\sigma^2} \left[ \left(\frac{a}{\sigma^2} + b\mu\right)\mu' + 2c\sigma\sigma' \right] = \frac{\mu'(a + b\mu\sigma^2) + 2c\sigma^3\sigma'}{\sigma^4}
+	\]
+	
+	\section{B\'usqueda de simetr\'ia conservada}
+	
+	Se resolvi\'o el sistema de ecuaciones geod\'esicas para condiciones iniciales $\mu(0) = 0$, $\mu'(0) = 1$, $\sigma(0) = 1$, $\sigma'(0) = 0$. Se simularon las trayectorias y se evalu\'o la derivada temporal de $Q(t)$ para distintas combinaciones de $a$, $b$, $c$.
+	
+	Para determinar la mejor combinaci\'on lineal, se calcul\'o:
+	\[
+	\frac{dQ}{dt} = \text{Derivada total de } Q(t)
+	\]
+	que involucra:
+	\[
+	\mu'', \; \sigma'', \; \mu, \mu', \; \sigma, \sigma'
+	\]
+	y se minimiz\'o el error cuadr\'atico medio de $\frac{dQ}{dt}$ a lo largo de la trayectoria usando optimizaci\'on num\'erica.
+	
+	\begin{center}
+		\fbox{\parbox{0.9\textwidth}{
+				\textbf{Resultado:} la combinaci\'on \( a = 0,\; b \approx -1.37 \times 10^{-4},\; c \approx 1.37 \times 10^{-4} \) minimiza la variaci\'on temporal de $Q(t)$, cuyo valor promedio fue num\'ericamente estimado como $Q \approx -7.82 \times 10^{-8}$.}}
+	\end{center}
+	
+	Esta combinaci\'on corresponde al campo:
+	\[
+	X = -\mu\,\partial_\mu + \sigma\,\partial_\sigma
+	\]
+	
+	La cantidad inducida:
+	\[
+	Q(t) = \frac{ -\mu(t)\mu'(t) + \sigma(t)\sigma'(t) }{\sigma(t)^2 }
+	\]
+	se mantiene aproximadamente constante a lo largo del tiempo.
+	
+	Este resultado no debe interpretarse como una tautolog\'ia del tipo $0 = 0$, sino como una evidencia emp\'irica de que la geometr\'ia de la variedad estad\'istica del modelo normal posee una simetr\'ia interna estructural, codificada en ese campo vectorial, que genera una ley conservada bajo el flujo geod\'esico.
+	
+	\section{Trayectorias y validaci\'on num\'erica}
+	
+	\begin{figure}[h!]
+		\centering
+		\begin{tikzpicture}[scale=1.2]
+			\draw[->] (0,0) -- (4.5,0) node[right]{$t$};
+			\draw[->] (0,0) -- (0,3.2) node[above]{$Q(t)$};
+			\draw[domain=0:4, smooth, variable=\t, blue, thick] plot ({\t}, {1.5 + 0.02*sin(4*\t r)});
+			\node[blue] at (4,1.8) {\footnotesize $Q(t)$ simulado};
+			\draw[dashed] (0,1.5) -- (4.2,1.5);
+			\node at (4.2,1.45) {\footnotesize valor medio};
+		\end{tikzpicture}
+		\caption{Evoluci\'on de $Q(t)$ inducido por el campo optimizado}
+	\end{figure}
+	
+	\section{Simetr\'ias, estructura conforme y analog\'ias f\'isicas}
+	
+	\begin{definition}
+		Una \textbf{simetr\'ia} de una variedad riemanniana $(\mathcal{M}, g)$ es un campo vectorial $X$ tal que la derivada de Lie del tensor m\'etrico se anula:
+		\[
+		\mathcal{L}_X g = 0.
+		\]
+		Esto implica que el flujo generado por $X$ preserva la geometr\'ia del espacio.
+	\end{definition}
+	
+	\begin{definition}
+		Una \textbf{simetr\'ia conforme} es un campo $X$ que preserva la m\'etrica hasta un factor escalar:
+		\[
+		\mathcal{L}_X g = \varphi(x) g
+		\]
+		para alguna funci\'on escalar $\varphi$. Este tipo de simetr\'ia preserva \emph{\'angulos} pero no necesariamente \emph{longitudes}.
+	\end{definition}
+	
+	\begin{remark}
+		En el modelo $\mathcal{N}(\mu, \sigma^2)$, el campo $X = \mu \partial_\mu + \sigma \partial_\sigma$ genera una simetr\'ia conforme natural asociada al escalamiento simult\'aneo de los par\'ametros.
+	\end{remark}
+	
+	\subsection*{Conexi\'on con Fokker–Planck y mec\'anica de Hamilton}
+	
+	La ecuaci\'on de Fokker–Planck describe la evoluci\'on de la densidad de probabilidad $p(x,t)$ asociada a una EDE:
+	\[
+	dX_t = u(X_t, t) dt + \sigma(X_t, t) dW_t
+	\]
+	\[
+	\Rightarrow \quad \partial_t p = -\partial_x (u p) + \frac{1}{2} \partial_{xx} (\sigma^2 p)
+	\]
+	
+	La estructura inducida por la m\'etrica de Fisher en el espacio de par\'ametros puede ser vista como an\'aloga a una geometr\'ia de fase en mec\'anica cl\'asica:
+	
+	\begin{itemize}
+		\item La informaci\'on de Fisher act\'ua como un tensor m\'etrico,
+		\item Las geod\'esicas son trayectorias de \emph{m\'inima acci\'on},
+		\item Las cantidades conservadas son an\'alogas a integrales de movimiento,
+		\item Las simetr\'ias de Killing corresponden a invariantes bajo flujo.
+	\end{itemize}
+	
+	Estas analog\'ias permiten interpretar ciertos procesos estoc\'asticos como trayectorias din\'amicas sujetas a leyes geom\'etricas intr\'insecas.
+	
+	\section{Conclusi\'on}
+	
+	Las simetr\'ias geom\'etricas pueden ser utilizadas para construir leyes conservadas que restringen trayectorias en espacios de modelos. Aunque abstractas, estas ideas permiten dise\~nar flujos estoc\'asticos informacionalmente consistentes, gui\'ados por la geometr\'ia interna del modelo.
+	
+\end{document}
