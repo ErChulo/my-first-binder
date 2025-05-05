@@ -5,4 +5,4 @@ FROM jupyter/base-notebook:latest
 COPY .jupyter/lab/user-settings /home/jovyan/.jupyter/lab/user-settings
 
 # Asegura permisos 
-RUN fix-permissions /home/jovyan/.jupyter
+# RUN fix-permissions /home/jovyan/.jupyter
