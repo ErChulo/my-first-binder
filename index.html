@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Frequency Counter & Sentence List</title>
+  <script src="https://unpkg.com/compromise@13.11.2/builds/compromise.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9; /* Light gray */
+    }
+    tr:nth-child(odd) {
+      background-color: #ffffff; /* White */
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Word Frequency Counter & Sentence List (Without Stopwords)</h1>
+
+  <!-- Textarea to input text -->
+  <textarea id="text-input" placeholder="Type some text here..."></textarea>
+
+  <!-- Table to display word frequency -->
+  <table id="word-frequency-table" style="display: none;">
+    <thead>
+      <tr>
+        <th>Word</th>
+        <th>Frequency</th>
+      </tr>
+    </thead>
+    <tbody id="word-frequency-body">
+    </tbody>
+  </table>
+
+  <!-- Table to display sentences -->
+  <table id="sentence-table" style="display: none;">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Sentence</th>
+      </tr>
+    </thead>
+    <tbody id="sentence-body">
+    </tbody>
+  </table>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Define a list of common stopwords
+      const stopwords = new Set([
+        'i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', 'your', 'yours', 
+        'yourself', 'yourselves', 'he', 'him', 'his', 'himself', 'she', 'her', 'hers', 
+        'herself', 'it', 'its', 'itself', 'they', 'them', 'their', 'theirs', 'themselves', 
+        'what', 'which', 'who', 'whom', 'this', 'that', 'these', 'those', 'am', 'is', 
+        'are', 'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'having', 'do', 
+        'does', 'did', 'doing', 'a', 'an', 'the', 'and', 'but', 'if', 'or', 'because', 
+        'as', 'until', 'while', 'of', 'at', 'by', 'for', 'with', 'about', 'against', 
+        'between', 'into', 'through', 'during', 'before', 'after', 'above', 'below', 'to', 
+        'from', 'up', 'down', 'in', 'out', 'on', 'off', 'over', 'under', 'again', 
+        'further', 'then', 'once', 'here', 'there', 'when', 'where', 'why', 'how', 'all', 
+        'any', 'both', 'each', 'few', 'more', 'most', 'other', 'some', 'such', 'no', 
+        'nor', 'not', 'only', 'own', 'same', 'so', 'than', 'too', 'very', 's', 't', 
+        'can', 'will', 'just', 'don', 'should', 'now'
+      ]);
+
+      // Function to count word frequency excluding stopwords
+      function countWordFrequency(text) {
+        let wordCount = {};
+        // Process the text with Compromise.js
+        let doc = nlp(text);
+
+        // Get all words
+        let words = doc.terms().out('array'); // Get an array of terms
+
+        // Count frequencies, excluding stopwords
+        words.forEach(word => {
+          word = word.toLowerCase(); // Ignore case
+          if (!stopwords.has(word)) { // Filter out stopwords
+            if (wordCount[word]) {
+              wordCount[word]++;
+            } else {
+              wordCount[word] = 1;
+            }
+          }
+        });
+
+        return wordCount;
+      }
+
+      // Function to get a list of sentences
+      function getSentences(text) {
+        let doc = nlp(text);
+        let sentences = doc.sentences().out('array'); // Get an array of sentences
+        return sentences;
+      }
+
+      // Function to update the table with word frequencies
+      function updateWordFrequencyTable(frequencies) {
+        const tableBody = document.getElementById('word-frequency-body');
+        const table = document.getElementById('word-frequency-table');
+        tableBody.innerHTML = ''; // Clear previous rows
+
+        if (Object.keys(frequencies).length === 0) {
+          table.style.display = 'none'; // Hide table if no words
+          return;
+        }
+
+        // Convert the word frequency object into an array and sort by frequency (descending)
+        const sortedFrequencies = Object.entries(frequencies).sort((a, b) => b[1] - a[1]);
+
+        table.style.display = 'table'; // Show the table
+
+        // Populate the table with sorted word counts
+        sortedFrequencies.forEach(([word, frequency]) => {
+          const row = document.createElement('tr');
+          const wordCell = document.createElement('td');
+          const frequencyCell = document.createElement('td');
+
+          wordCell.textContent = word;
+          frequencyCell.textContent = frequency;
+
+          row.appendChild(wordCell);
+          row.appendChild(frequencyCell);
+          tableBody.appendChild(row);
+        });
+      }
+
+      // Function to update the table with sentences
+      function updateSentenceTable(sentences) {
+        const tableBody = document.getElementById('sentence-body');
+        const table = document.getElementById('sentence-table');
+        tableBody.innerHTML = ''; // Clear previous rows
+
+        if (sentences.length === 0) {
+          table.style.display = 'none'; // Hide table if no sentences
+          return;
+        }
+
+        table.style.display = 'table'; // Show the table
+
+        // Populate the table with sentences
+        sentences.forEach((sentence, index) => {
+          const row = document.createElement('tr');
+          const indexCell = document.createElement('td');
+          const sentenceCell = document.createElement('td');
+
+          indexCell.textContent = index + 1;
+          sentenceCell.textContent = sentence;
+
+          row.appendChild(indexCell);
+          row.appendChild(sentenceCell);
+          tableBody.appendChild(row);
+        });
+      }
+
+      // Event listener for textarea input changes
+      document.getElementById('text-input').addEventListener('input', function () {
+        const text = this.value;
+        const wordFrequencies = countWordFrequency(text); // Count word frequencies
+        const sentences = getSentences(text); // Get sentences
+
+        updateWordFrequencyTable(wordFrequencies); // Update the word frequency table
+        updateSentenceTable(sentences); // Update the sentence table
+      });
+    });
+  </script>
+
+</body>
+</html>
