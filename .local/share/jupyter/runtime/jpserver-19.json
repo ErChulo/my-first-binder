@@ -1,0 +1,13 @@
+{
+  "base_url": "/user/erchulo-my-first-binder-1beg665n/",
+  "hostname": "0.0.0.0",
+  "password": false,
+  "pid": 19,
+  "port": 8888,
+  "root_dir": "/home/jovyan",
+  "secure": false,
+  "sock": "",
+  "token": "IHT-iseJSqSrIjnROwrsRw",
+  "url": "http://jupyter-erchulo-my-first-binder-1beg665n:8888/user/erchulo-my-first-binder-1beg665n/",
+  "version": "2.15.0"
+}
