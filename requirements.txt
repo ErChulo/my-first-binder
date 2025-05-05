@@ -1,5 +1,6 @@
 numpy==1.25.0
 pandas
+scipy
 matplotlib
 PyLaTeX
 jupyterlab_latex
