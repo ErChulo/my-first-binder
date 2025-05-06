@@ -1,5 +1,5 @@
 {
-  "base_url": "/user/erchulo-my-first-binder-8aqedgeh/",
+  "base_url": "/user/erchulo-my-first-binder-udrv1khj/",
   "hostname": "0.0.0.0",
   "password": false,
   "pid": 19,
@@ -7,7 +7,7 @@
   "root_dir": "/home/jovyan",
   "secure": false,
   "sock": "",
-  "token": "4T5SXoqpQjSzFBW9tFLGlA",
-  "url": "http://jupyter-erchulo-my-first-binder-8aqedgeh:8888/user/erchulo-my-first-binder-8aqedgeh/",
+  "token": "N5a6m8ZyQOanIWvOAVoHDg",
+  "url": "http://jupyter-erchulo-my-first-binder-udrv1khj:8888/user/erchulo-my-first-binder-udrv1khj/",
   "version": "2.15.0"
 }
