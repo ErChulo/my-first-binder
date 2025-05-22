@@ -5,3 +5,4 @@ matplotlib
 PyLaTeX
 jupyterlab_latex
 jupyterlab-git
+OGRePy
