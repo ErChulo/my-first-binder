@@ -9,3 +9,6 @@ manim>=0.18
 ipykernel
 ipywidgets
 jupyterlab
+ffmpeg
+libcairo2
+libpango1.0-0
