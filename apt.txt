@@ -5,4 +5,3 @@ texlive-lang-spanish
 texlive-xetex
 ffmpeg
 libcairo2
-libpango1.0-0
