@@ -4,4 +4,3 @@ texlive-fonts-recommended
 texlive-lang-spanish
 texlive-xetex
 ffmpeg
-libcairo2
