@@ -10,3 +10,4 @@ ipykernel
 ipywidgets
 jupyterlab
 ffmpeg
+pangocairo >= 1.30.0
