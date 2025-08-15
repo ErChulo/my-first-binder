@@ -3,3 +3,6 @@ texlive-latex-extra
 texlive-fonts-recommended
 texlive-lang-spanish
 texlive-xetex
+ffmpeg
+libcairo2
+libpango1.0-0
