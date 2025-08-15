@@ -10,4 +10,7 @@ ipykernel
 ipywidgets
 jupyterlab
 ffmpeg
-pangocairo >= 1.30.0
+build-essential 
+python3-dev 
+libcairo2-dev 
+libpango1.0-dev
