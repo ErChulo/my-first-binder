@@ -3,4 +3,3 @@ texlive-latex-extra
 texlive-fonts-recommended
 texlive-lang-spanish
 texlive-xetex
-ffmpeg
