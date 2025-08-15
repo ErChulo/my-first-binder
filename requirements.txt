@@ -10,5 +10,3 @@ ipykernel
 ipywidgets
 jupyterlab
 ffmpeg
-libcairo2
-libpango1.0-0
