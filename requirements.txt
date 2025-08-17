@@ -5,7 +5,3 @@ matplotlib
 PyLaTeX
 jupyterlab_latex
 jupyterlab-git
-ipykernel
-ipywidgets
-jupyterlab
-
