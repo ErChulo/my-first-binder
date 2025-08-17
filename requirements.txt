@@ -5,8 +5,7 @@ matplotlib
 PyLaTeX
 jupyterlab_latex
 jupyterlab-git
-manim>=0.18
 ipykernel
 ipywidgets
 jupyterlab
-ffmpeg
+
